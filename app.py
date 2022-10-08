@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 
 
-model = joblib.load('laptop_price_ph_model')
+model = joblib.load('updated_new_laptop_price_ph_model')
 
 app = Flask(__name__)
 app.debug = True
