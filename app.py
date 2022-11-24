@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 
 
-model = joblib.load('laptop_price_ph_model')
+model = joblib.load('new_labeled_laptop_price_ph_model')
 
 app = Flask(__name__)
 app.debug = True
@@ -18,15 +18,49 @@ def indexPage():
 	# The form is here
     return render_template('index.html')
 
+# Acer	Asus	Dell	HP	Huawei	Lenovo
+
 @app.route('/result' , methods=['POST', 'GET'])
 def resultPage():
-	a = request.form['a']
+	a = int(request.form['a'])
 	b = request.form['b']
 	c = request.form['c']
 
-	arr = np.array([[a,b,c]], dtype=float)
-	pred = model.predict(arr)
-	predInt = int(pred)
+	if a == 1:
+		arr = np.array([[1,0,0,0,0,0,b,c]], dtype=float)
+		pred = model.predict(arr)
+		predInt = int(pred)
+
+	elif a == 2:
+		arr = np.array([[0,1,0,0,0,0,b,c]], dtype=float)
+		pred = model.predict(arr)
+		predInt = int(pred)
+
+	elif a == 3:
+		arr = np.array([[0,0,1,0,0,0,b,c]], dtype=float)
+		pred = model.predict(arr)
+		predInt = int(pred)
+
+	elif a == 4:
+		arr = np.array([[0,0,0,1,0,0,b,c]], dtype=float)
+		pred = model.predict(arr)
+		predInt = int(pred)
+
+	elif a == 5:
+		arr = np.array([[0,0,0,0,1,0,b,c]], dtype=float)
+		pred = model.predict(arr)
+		predInt = int(pred)
+
+	elif a == 6:
+		arr = np.array([[0,0,0,0,0,1,b,c]], dtype=float)
+		pred = model.predict(arr)
+		predInt = int(pred)
+
+	elif a == 7:
+		arr = np.array([[0,0,0,0,0,0,b,c]], dtype=float)
+		pred = model.predict(arr)
+		predInt = int(pred)
+
 
 	return render_template('result.html', data=predInt)
 
